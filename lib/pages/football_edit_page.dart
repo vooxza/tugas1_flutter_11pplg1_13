@@ -4,19 +4,16 @@ import 'package:flutter_testing_1/models/football_models.dart';
 import 'package:get/get.dart';
 
 class FootballEditPage extends StatelessWidget {
-  final int playerIndex;
-  final Player player;
-
-  FootballEditPage({
-    super.key,
-    required this.playerIndex,
-    required this.player,
-  });
+  FootballEditPage({super.key});
 
   final FootballController footballController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final arguments = Get.arguments as Map;
+    final int playerIndex = arguments['index'];
+    final Player player = arguments['player'];
+
     final TextEditingController nameController =
         TextEditingController(text: player.name);
     final TextEditingController positionController =
@@ -61,7 +58,7 @@ class FootballEditPage extends StatelessWidget {
                     number: int.tryParse(numberController.text) ?? 0,
                   ),
                 );
-                Get.back(); // kembali ke list
+                Get.back();
               },
               child: Text("Save"),
             ),

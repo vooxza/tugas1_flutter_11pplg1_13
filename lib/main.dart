@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_testing_1/login.dart';
-import 'package:flutter_testing_1/pages/kalkulator_page.dart';
+import 'package:get/get.dart';
 import 'package:flutter_testing_1/routes/pages.dart';
 import 'package:flutter_testing_1/routes/routes.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:flutter_testing_1/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,9 +19,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: AppRoutes.calculator,
-      getPages: AppPages.pages,
+      initialRoute: '/', 
+      getPages: [
+        GetPage(name: '/', page: () => HomePage()), 
+        ...AppPages.pages, 
+      ],
     );
   }
 }
-

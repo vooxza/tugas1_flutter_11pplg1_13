@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_testing_1/home.dart';
+import 'package:flutter_testing_1/pages/home_page.dart';
 import 'package:flutter_testing_1/kalkulator.dart';
 import 'package:flutter_testing_1/register.dart';
 import 'package:flutter_testing_1/widgets/widget_button.dart';
