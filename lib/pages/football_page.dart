@@ -4,7 +4,10 @@ import 'package:flutter_testing_1/controllers/football_controller.dart';
 import 'package:flutter_testing_1/routes/routes.dart';
 
 class FootballPage extends StatelessWidget {
-  final FootballController footballController = Get.put(FootballController());
+  // final FootballController footballController = Get.put(FootballController());
+  final footballController = Get.find<FootballController>();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +26,8 @@ class FootballPage extends StatelessWidget {
               onTap: () {
                 Get.toNamed(
                   AppRoutes.footballeditplayers,
-                  arguments: {
-                    'index': index,
-                    'player': player,
-                  },
+                  arguments: index,
+                  
                 );
               },
             );

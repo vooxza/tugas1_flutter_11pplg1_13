@@ -35,7 +35,6 @@ class FootballController extends GetxController{
     ),
   ].obs;
 
-  static var to;
 
   void updatePlayer(int index, Player newPlayer) {
     players[index] = newPlayer; 

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_testing_1/controllers/profile_controller.dart';
+import 'package:flutter_testing_1/widgets/widget_button.dart';
+import 'package:get/get.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  ProfilePage({super.key});
+
+  final ProfileController controller = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +15,6 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // foto profile dari lokal
             const CircleAvatar(
               radius: 60,
               backgroundImage: AssetImage("assets/profile.jpg"),
@@ -23,6 +27,15 @@ class ProfilePage extends StatelessWidget {
             const Text(
               "Flutter Developer",
               style: TextStyle(color: Colors.grey),
+            ),
+            const SizedBox(height: 40),
+
+            CustomButton(
+              text: "Log Out",
+              textColor: Colors.red,
+              onPressed: () {
+                controller.logout();
+              },
             ),
           ],
         ),

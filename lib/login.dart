@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                     context,
                     MaterialPageRoute(builder: (context) => RegisterPage()),
                   );
-                },
+                 },
                 child: const Text("Belum punya akun? Register di sini"),
               ),
             ),            
