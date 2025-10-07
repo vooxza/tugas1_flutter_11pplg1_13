@@ -10,4 +10,6 @@ class AppRoutes {
   static const String splashscreen = "/splashscreen";
   static const String login = "/login";
   static const String homepage = "/homepage";
+  static const String contactpage = "/contactpage";
+  static const String examplescreen = "/examplescreen";
 }   
