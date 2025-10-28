@@ -4,7 +4,8 @@ import 'package:flutter_testing_1/controllers/football_controller.dart';
 import 'package:flutter_testing_1/routes/routes.dart';
 
 class FootballPage extends StatelessWidget {
-  final footballController = Get.find<FootballController>();
+  final footballController = Get.put(FootballController());
+
 
   @override
   Widget build(BuildContext context) {

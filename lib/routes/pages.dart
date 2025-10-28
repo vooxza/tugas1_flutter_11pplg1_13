@@ -5,6 +5,7 @@ import 'package:flutter_testing_1/bindings/example_binding.dart';
 import 'package:flutter_testing_1/bindings/football_binding.dart';
 import 'package:flutter_testing_1/bindings/football_edit_binding.dart';
 import 'package:flutter_testing_1/bindings/login_binding.dart';
+import 'package:flutter_testing_1/bindings/login_binding_api.dart';
 import 'package:flutter_testing_1/bindings/profile_binding.dart';
 import 'package:flutter_testing_1/bindings/splashscreen_binding.dart';
 import 'package:flutter_testing_1/fragments/home_fragment.dart';
@@ -17,6 +18,7 @@ import 'package:flutter_testing_1/pages/football_page.dart';
 import 'package:flutter_testing_1/pages/home_page.dart';
 import 'package:flutter_testing_1/pages/kalkulator_page.dart';
 import 'package:flutter_testing_1/pages/football_edit_page.dart';
+import 'package:flutter_testing_1/pages/login_api_page.dart';
 import 'package:flutter_testing_1/pages/login_page.dart';
 import 'package:flutter_testing_1/pages/main_menu_page.dart';
 import 'package:flutter_testing_1/pages/profile_page.dart';
@@ -71,6 +73,11 @@ class AppPages {
       name: AppRoutes.examplescreen,
       page: () => ExamplePage(),
       binding: ExampleBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.loginapi,
+      page: () => LoginApiPage(),
+      binding: LoginBindingApi(),
     ),
   ];
 }
