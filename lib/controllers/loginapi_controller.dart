@@ -67,13 +67,12 @@ class LoginApiController extends GetxController {
       } else {
         loginStatus.value = "Error: ${response.statusCode}";
         Get.snackbar("Error", "Kode HTTP: ${response.statusCode}");
-      }
+      }   
     } catch (e) {
       loginStatus.value = "Terjadi kesalahan: $e";
       Get.snackbar("Error", "Terjadi kesalahan: $e");
-    } finally {
-      isLoading.value = false;
-    }
+    } 
+    isLoading.value = false;
   }
 
   @override
