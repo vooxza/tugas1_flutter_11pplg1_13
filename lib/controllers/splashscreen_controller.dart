@@ -10,16 +10,17 @@ class SplashscreenController extends GetxController {
   }
 
   Future<void> checkLogin() async {
-    await Future.delayed(const Duration(seconds: 3)); 
+    await Future.delayed(const Duration(seconds: 2));
+
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
     if (token != null && token.isNotEmpty) {
-      print("Token ditemukan: $token");
-      Get.offAllNamed(AppRoutes.homepage); 
+      print("✅ Token ditemukan: $token");
+      Get.offAllNamed(AppRoutes.homepage);
     } else {
-      print("Token tidak ditemukan, kembali ke login");
-      Get.offAllNamed(AppRoutes.login);
+      print("⚠️ Token tidak ditemukan, kembali ke login");
+      Get.offAllNamed(AppRoutes.loginapi);
     }
   }
 }

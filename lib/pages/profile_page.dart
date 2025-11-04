@@ -10,26 +10,33 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = controller.user;
+
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Profil Saya"),
+        centerTitle: true,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 60,
-              backgroundImage: AssetImage("assets/profile.jpg"),
+              backgroundImage: user?.photoURL != null
+                  ? NetworkImage(user!.photoURL!)
+                  : const AssetImage("assets/profile.jpg") as ImageProvider,
             ),
             const SizedBox(height: 16),
-            const Text(
-              "Fabian Amadeus S.N",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            Text(
+              user?.displayName ?? "Tidak ada nama",
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              "Flutter Developer",
-              style: TextStyle(color: Colors.grey),
+            Text(
+              user?.email ?? "Tidak ada email",
+              style: const TextStyle(color: Colors.grey),
             ),
             const SizedBox(height: 40),
-
             CustomButton(
               text: "Log Out",
               textColor: Colors.red,

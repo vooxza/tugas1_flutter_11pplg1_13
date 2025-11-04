@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_testing_1/pages/home_page.dart';
-import 'package:flutter_testing_1/pages/main_menu_page.dart';
 import 'package:get/get.dart';
-import '../controllers/loginapi_controller.dart';
-import '../pages/football_page.dart'; 
-import '../register.dart';
-import '../widgets/widget_button.dart';
+import 'package:flutter_testing_1/controllers/loginapi_controller.dart';
+import 'package:flutter_testing_1/controllers/google_controller.dart';
+import 'package:flutter_testing_1/pages/home_page.dart';
+import 'package:flutter_testing_1/register.dart';
+import 'package:flutter_testing_1/widgets/widget_button.dart';
 
 class LoginApiPage extends StatelessWidget {
   LoginApiPage({super.key});
 
   final LoginApiController controller = Get.put(LoginApiController());
+  final GoogleController googleController = Get.put(GoogleController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login API Page"),
+        title: const Text("Login Page"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 16),
             const Text(
               "Welcome to our first app",
               style: TextStyle(
@@ -33,16 +34,8 @@ class LoginApiPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Center(
-              child: Image.asset(
-                'assets/logo_flutter.png',
-                width: 100,
-                height: 100,
-              ),
-            ),
+            Image.asset('assets/logo_flutter.png', width: 100, height: 100),
             const SizedBox(height: 20),
-            const Text("Please enter your username and password"),
-            const SizedBox(height: 10),
 
             TextField(
               controller: controller.username,
@@ -63,69 +56,72 @@ class LoginApiPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            Center(
-              child: Obx(() {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(120, 45),
-                  ),
-                  onPressed: controller.isLoading.value
-                      ? null
-                      : () async {
-                          await controller.login();
+            // Tombol Login API
+            Obx(() {
+              return ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(120, 45),
+                ),
+                onPressed: controller.isLoading.value
+                    ? null
+                    : () async {
+                        await controller.login();
 
-                          if (controller.loginStatus.value
-                              .toLowerCase()
-                              .contains("success")) {
-                            Get.offAll(() => HomePage());
-                          }
-                        },
-                  child: controller.isLoading.value
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                        )
-                      : const Text("Login"),
-                );
-              }),
-            ),
+                        if (controller.loginStatus.value
+                            .toLowerCase()
+                            .contains("success")) {
+                          Get.snackbar(
+                            "Login Berhasil",
+                            "Selamat datang kembali!",
+                            snackPosition: SnackPosition.TOP,
+                            backgroundColor: Colors.green.shade600,
+                            colorText: Colors.white,
+                          );
+                          Get.offAll(() => HomePage());
+                        }
+                      },
+                child: controller.isLoading.value
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : const Text("Login"),
+              );
+            }),
 
             const SizedBox(height: 16),
-
-            Obx(() => Center(
-                  child: Text(
-                    controller.loginStatus.value,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.blueGrey,
-                    ),
-                  ),
-                )),
-            const SizedBox(height: 16),
-
-            Center(
-              child: CustomButton(
-                text: "Register",
-                textColor: Colors.black,
-                onPressed: () {
-                  Get.to(() => RegisterPage());
-                },
-              ),
-            ),
+            const Text("Atau login menggunakan"),
             const SizedBox(height: 10),
 
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  Get.to(() => RegisterPage());
-                },
-                child: const Text("Belum punya akun? Register di sini"),
+            // Tombol Login Google
+            ElevatedButton.icon(
+              icon: Image.asset('assets/google.png', width: 24, height: 24),
+              label: const Text("Login dengan Google"),
+              onPressed: googleController.signInWithGoogle,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                minimumSize: const Size(double.infinity, 45),
+                side: const BorderSide(color: Colors.grey),
               ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Register
+            CustomButton(
+              text: "Register",
+              textColor: Colors.black,
+              onPressed: () => Get.to(() => RegisterPage()),
+            ),
+
+            TextButton(
+              onPressed: () => Get.to(() => RegisterPage()),
+              child: const Text("Belum punya akun? Register di sini"),
             ),
           ],
         ),

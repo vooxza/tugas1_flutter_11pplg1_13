@@ -17,29 +17,23 @@ class NotificationController extends GetxController {
     _initLocalNotifications();
   }
 
-  // 🔧 Setup local notifications
   Future<void> _initLocalNotifications() async {
     const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
     const initSettings = InitializationSettings(android: androidInit);
 
     await _localNotifications.initialize(initSettings,
         onDidReceiveNotificationResponse: (NotificationResponse response) {
-      // Jika user klik notifikasi → tampil snackbar info
       Get.snackbar("Opened Notification", response.payload ?? "No message");
     });
   }
 
-  // 🔧 Setup Firebase Cloud Messaging
   Future<void> _initFCM() async {
-    // Request permission
     NotificationSettings settings = await _messaging.requestPermission();
     print("🔔 Permission: ${settings.authorizationStatus}");
 
-    // Get token
     token.value = await _messaging.getToken() ?? "No token";
     print("📱 Token: ${token.value}");
 
-    // Foreground message listener
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       final title = message.notification?.title ?? 'No title';
       final body = message.notification?.body ?? 'No body';
@@ -47,14 +41,11 @@ class NotificationController extends GetxController {
       lastMessage.value = "$title\n$body";
       print("📨 Foreground message: $title");
 
-      // ✅ Tampilkan snackbar
       Get.snackbar(title, body, snackPosition: SnackPosition.TOP);
 
-      // ✅ Tampilkan notifikasi sistem (tray)
       await _showLocalNotification(title, body);
     });
 
-    // Jika app dibuka dari background via klik notifikasi
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       final title = message.notification?.title ?? 'Opened';
       final body = message.notification?.body ?? 'No body';
@@ -65,11 +56,10 @@ class NotificationController extends GetxController {
     });
   }
 
-  // 🧩 Fungsi tampilkan notifikasi lokal
   Future<void> _showLocalNotification(String title, String body) async {
     const androidDetails = AndroidNotificationDetails(
-      'default_channel', // channel id
-      'General Notifications', // channel name
+      'default_channel', 
+      'General Notifications', 
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
@@ -78,7 +68,7 @@ class NotificationController extends GetxController {
     const details = NotificationDetails(android: androidDetails);
 
     await _localNotifications.show(
-      0, // id
+      0, 
       title,
       body,
       details,
